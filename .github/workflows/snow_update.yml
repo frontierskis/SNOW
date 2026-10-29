@@ -1,0 +1,32 @@
+name: Daily Snow Report Fetcher
+
+on:
+  schedule:
+    # Runs everyday at 1:30 UTC (~7:30 AM MDT depending on daylight saving)
+    - cron: '30 1 * * *' 
+  workflow_dispatch: # Allows manual trigger anytime from the Actions tab
+
+jobs:
+  update-snow:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run snow fetcher script
+        run: python fetch_snow.py
+
+      - name: Commit and push updated JSON back to repo
+        run: |
+          git config --global user.name "GitHub Action Bot"
+          git config --global user.email "action@github.com"
+          git add snow_report.json
+          git commit -m "Auto-update daily snow report at 7:30 AM" || exit 0
+          git push
