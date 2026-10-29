@@ -3,7 +3,6 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 import requests
 
-# Define your 8 target resorts with their precise official conditions/snow report URLs
 RESORTS = [
     {
         "id": "sunshine", 
@@ -23,7 +22,7 @@ RESORTS = [
     {
         "id": "castle", 
         "name": "Castle Mountain", 
-        "url": "https://www.skicastle.ca/conditions/"
+        "url": "https://www.skicastle.ca/snowreport/"
     },
     {
         "id": "fernie", 
@@ -38,12 +37,12 @@ RESORTS = [
     {
         "id": "kickinghorse", 
         "name": "Kicking Horse Mountain Resort", 
-        "url": "https://kickinghorseresort.com/conditions/"
+        "url": "https://kickinghorseresort.com/conditions/snow-report/"
     },
     {
         "id": "panorama", 
         "name": "Panorama Mountain Resort", 
-        "url": "https://panoramaresort.com/on-the-mountain/conditions"
+        "url": "https://www.panoramaresort.com/panorama-today/daily-snow-report"
     }
 ]
 
@@ -51,8 +50,17 @@ headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 }
 
+def clean_snow_value(text):
+    """Helper to pull the numeric float out of strings like '15 CM' or '3 cm'."""
+    if not text:
+        return 0.0
+    try:
+        filtered = ''.join(c for c in text if c.isdigit() or c == '.')
+        return float(filtered) if filtered else 0.0
+    except ValueError:
+        return 0.0
+
 def scrape_resort(resort):
-    # Default fallback values if data is unavailable, broken, or out of season
     default_data = {
         "name": resort["name"],
         "temp": "N/A",
@@ -67,41 +75,125 @@ def scrape_resort(resort):
             return default_data
             
         soup = BeautifulSoup(response.text, 'html.parser')
-        
-        # Helper to extract clean text values near labels
-        def find_metric_value(keywords):
-            for kw in keywords:
-                label = soup.find(string=lambda t: t and kw.lower() in t.lower())
-                if label:
-                    # Look for parent or sibling containers holding the value
-                    parent = label.find_parent()
-                    if parent:
-                        text = parent.get_text(strip=True)
-                        for prefix in keywords:
-                            text = text.replace(prefix, "").replace(prefix.lower(), "").strip()
-                        if text and any(unit in text.lower() for unit in ["cm", "in", "°"]):
-                            return text
-            return "N/A"
+        snow_24h = "N/A"
+        snow_multi = "N/A"
 
-        # Extract 24-hr snowfall
-        snow_24h = find_metric_value(["24 Hours", "Last 24 Hours", "New Snow", "24hr"])
-        
-        # Extract Multi-day / Weekly snowfall (5 Day, 7 Day, Weekly)
-        snow_multi = find_metric_value(["7 Days", "5 Days", "Weekly", "Past 7 Days", "7 Day"])
+        # --- 1. FERNIE ---
+        if resort["id"] == "fernie":
+            lbl_24 = soup.find(string=lambda t: t and "LAST 24 HOURS" in t.upper())
+            if lbl_24 and lbl_24.find_parent():
+                # Usually text is structured right above/below the label in RCR layouts
+                parent = lbl_24.find_parent()
+                # Grab preceding sibling or text node containing the measurement
+                prev = parent.find_previous_sibling()
+                if prev:
+                    snow_24h = prev.get_text(strip=True)
+            
+            lbl_7d = soup.find(string=lambda t: t and "LAST 7 DAYS" in t.upper())
+            if lbl_7d and lbl_7d.find_parent():
+                parent = lbl_7d.find_parent()
+                prev = parent.find_previous_sibling()
+                if prev:
+                    snow_multi = prev.get_text(strip=True)
 
-        # Parse numerical value from 24h string for sorting
-        val = 0.0
-        if snow_24h != "N/A":
-            try:
-                val = float(''.join(c for c in snow_24h if c.isdigit() or c == '.'))
-            except ValueError:
-                val = 0.0
+        # --- 2. CASTLE MOUNTAIN ---
+        elif resort["id"] == "castle":
+            lbl_24 = soup.find(string=lambda t: t and "Fresh Snow (24 hrs)" in t)
+            if lbl_24 and lbl_24.find_parent():
+                # Castle uses table rows or clear label-value pairs
+                parent = lbl_24.find_parent()
+                nxt = parent.find_next_sibling()
+                if nxt:
+                    snow_24h = f"{nxt.get_text(strip=True)} cm"
+            
+            lbl_7d = soup.find(string=lambda t: t and "Last 7 days" in t)
+            if lbl_7d and lbl_7d.find_parent():
+                parent = lbl_7d.find_parent()
+                nxt = parent.find_next_sibling()
+                if nxt:
+                    snow_multi = f"{nxt.get_text(strip=True)} cm"
+
+        # --- 3. BANFF SUNSHINE ---
+        elif resort["id"] == "sunshine":
+            lbl_24 = soup.find(string=lambda t: t and "24hr" in t.lower())
+            if lbl_24 and lbl_24.find_parent():
+                nxt = lbl_24.find_parent().find_next_sibling()
+                if nxt:
+                    snow_24h = nxt.get_text(strip=True)
+            
+            lbl_5d = soup.find(string=lambda t: t and "5 Day" in t)
+            if lbl_5d and lbl_5d.find_parent():
+                nxt = lbl_5d.find_parent().find_next_sibling()
+                if nxt:
+                    snow_multi = nxt.get_text(strip=True)
+
+        # --- 4. MT. NORQUAY ---
+        elif resort["id"] == "norquay":
+            lbl_24 = soup.find(string=lambda t: t and "Last 24 Hours" in t)
+            if lbl_24 and lbl_24.find_parent():
+                nxt = lbl_24.find_parent().find_next_sibling()
+                if nxt:
+                    snow_24h = nxt.get_text(strip=True)
+            
+            lbl_7d = soup.find(string=lambda t: t and "Last 7 Days" in t)
+            if lbl_7d and lbl_7d.find_parent():
+                nxt = lbl_7d.find_parent().find_next_sibling()
+                if nxt:
+                    snow_multi = nxt.get_text(strip=True)
+
+        # --- 5. KICKING HORSE ---
+        elif resort["id"] == "kickinghorse":
+            lbl_24 = soup.find(string=lambda t: t and "LAST 24 HOURS" in t.upper())
+            if lbl_24 and lbl_24.find_parent():
+                parent = lbl_24.find_parent()
+                prev = parent.find_previous_sibling()
+                if prev:
+                    snow_24h = prev.get_text(strip=True)
+
+        # --- 6. KIMBERLEY ---
+        elif resort["id"] == "kimberley":
+            lbl_24 = soup.find(string=lambda t: t and "LAST 24 HOURS" in t.upper())
+            if lbl_24 and lbl_24.find_parent():
+                parent = lbl_24.find_parent()
+                prev = parent.find_previous_sibling()
+                if prev:
+                    snow_24h = prev.get_text(strip=True)
+
+        # --- 7. PANORAMA ---
+        elif resort["id"] == "panorama":
+            lbl_24 = soup.find(string=lambda t: t and "24 Hours" in t)
+            if lbl_24 and lbl_24.find_parent():
+                nxt = lbl_24.find_parent().find_next_sibling()
+                if nxt:
+                    snow_24h = nxt.get_text(strip=True)
+            
+            lbl_7d = soup.find(string=lambda t: t and "7 Days" in t)
+            if lbl_7d and lbl_7d.find_parent():
+                nxt = lbl_7d.find_parent().find_next_sibling()
+                if nxt:
+                    snow_multi = nxt.get_text(strip=True)
+
+        # --- 8. LAKE LOUISE (General fallback check) ---
+        else:
+            lbl_24 = soup.find(string=lambda t: t and "24 Hours" in t)
+            if lbl_24 and lbl_24.find_parent():
+                nxt = lbl_24.find_parent().find_next_sibling()
+                if nxt:
+                    snow_24h = nxt.get_text(strip=True)
+
+        # Fallback to generic keyword search if specific block missed anything
+        if snow_24h == "N/A":
+            generic_lbl = soup.find(string=lambda t: t and "24 Hours" in t)
+            if generic_lbl and generic_lbl.find_parent():
+                snow_24h = generic_lbl.find_parent().get_text(strip=True).replace("24 Hours", "").strip()
+
+        val = clean_snow_value(snow_24h)
 
         return {
             "name": resort["name"],
-            "temp": "N/A",  # Can be mapped if temp label is scraped, defaults to N/A cleanly
-            "snow24h": snow_24h,
-            "snowMulti": snow_multi,
+            "temp": "N/A",
+            "snow24h": snow_24h if snow_24h else "N/A",
+            "snowMulti": snow_multi if snow_multi else "N/A",
             "snowValue": val
         }
                     
@@ -113,11 +205,11 @@ def scrape_resort(resort):
 def main():
     updated_data = []
     for resort in RESORTS:
-        print(f"Checking mid-mountain / conditions report for {resort['name']}...")
+        print(f"Scraping precise metrics for {resort['name']}...")
         data = scrape_resort(resort)
         updated_data.append(data)
 
-    # Sort resorts from highest 24h snow to lowest (N/A items safely cascade to the bottom)
+    # Sort resorts from highest 24h snow to lowest
     updated_data.sort(key=lambda x: x["snowValue"], reverse=True)
 
     payload = {
@@ -125,11 +217,10 @@ def main():
         "resorts": updated_data
     }
 
-    # Save to JSON file for GitHub Actions
     with open("snow_report.json", "w") as f:
         json.dump(payload, f, indent=2)
 
-    print("Snow report JSON successfully generated with 24h and multi-day metrics!")
+    print("Snow report JSON successfully generated with site-specific rules!")
 
 if __name__ == "__main__":
     main()
