@@ -1,0 +1,53 @@
+{
+  "lastUpdated": "2026-10-29 03:26:28 UTC",
+  "resorts": [
+    {
+      "name": "Banff Sunshine",
+      "temp": "N/A",
+      "snow24h": "N/A",
+      "snowValue": 0.0
+    },
+    {
+      "name": "Lake Louise",
+      "temp": "N/A",
+      "snow24h": "N/A",
+      "snowValue": 0.0
+    },
+    {
+      "name": "Mt. Norquay",
+      "temp": "N/A",
+      "snow24h": "N/A",
+      "snowValue": 0.0
+    },
+    {
+      "name": "Castle Mountain",
+      "temp": "N/A",
+      "snow24h": "N/A",
+      "snowValue": 0.0
+    },
+    {
+      "name": "Fernie Alpine Resort",
+      "temp": "N/A",
+      "snow24h": "N/A",
+      "snowValue": 0.0
+    },
+    {
+      "name": "Kimberley Alpine Resort",
+      "temp": "N/A",
+      "snow24h": "N/A",
+      "snowValue": 0.0
+    },
+    {
+      "name": "Kicking Horse Mountain Resort",
+      "temp": "N/A",
+      "snow24h": "N/A",
+      "snowValue": 0.0
+    },
+    {
+      "name": "Panorama Mountain Resort",
+      "temp": "N/A",
+      "snow24h": "N/A",
+      "snowValue": 0.0
+    }
+  ]
+}
