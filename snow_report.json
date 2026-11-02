@@ -1,58 +1,58 @@
 {
-  "lastUpdated": "2026-11-01 02:16:19 UTC",
+  "lastUpdated": "2026-11-02 02:19:43 UTC",
   "resorts": [
     {
-      "name": "Lake Louise",
-      "temp": "-6.5\u00b0C",
-      "snow24h": "1.7 cm",
-      "snowMulti": "3.4 cm",
-      "snowValue": 1.7
+      "name": "Banff Sunshine",
+      "temp": "-3.3\u00b0C",
+      "snow24h": "0 cm",
+      "snowMulti": "0 cm",
+      "snowValue": 0.0
     },
     {
-      "name": "Banff Sunshine",
-      "temp": "-4.0\u00b0C",
-      "snow24h": "1 cm",
-      "snowMulti": "2.1 cm",
-      "snowValue": 1.0
+      "name": "Lake Louise",
+      "temp": "-3.0\u00b0C",
+      "snow24h": "0 cm",
+      "snowMulti": "0.9 cm",
+      "snowValue": 0.0
     },
     {
       "name": "Mt. Norquay",
-      "temp": "-1.8\u00b0C",
+      "temp": "-0.3\u00b0C",
       "snow24h": "0 cm",
-      "snowMulti": "0.7 cm",
+      "snowMulti": "0 cm",
       "snowValue": 0.0
     },
     {
       "name": "Castle Mountain",
-      "temp": "2.4\u00b0C",
+      "temp": "-0.8\u00b0C",
       "snow24h": "0 cm",
       "snowMulti": "0 cm",
       "snowValue": 0.0
     },
     {
       "name": "Fernie Alpine Resort",
-      "temp": "4.4\u00b0C",
+      "temp": "-0.8\u00b0C",
       "snow24h": "0 cm",
       "snowMulti": "0 cm",
       "snowValue": 0.0
     },
     {
       "name": "Kimberley Alpine Resort",
-      "temp": "2.2\u00b0C",
+      "temp": "1.7\u00b0C",
       "snow24h": "0 cm",
       "snowMulti": "0 cm",
       "snowValue": 0.0
     },
     {
       "name": "Kicking Horse Mountain Resort",
-      "temp": "-1.4\u00b0C",
+      "temp": "-0.6\u00b0C",
       "snow24h": "0 cm",
       "snowMulti": "0.1 cm",
       "snowValue": 0.0
     },
     {
       "name": "Panorama Mountain Resort",
-      "temp": "0.8\u00b0C",
+      "temp": "0.4\u00b0C",
       "snow24h": "0 cm",
       "snowMulti": "0 cm",
       "snowValue": 0.0
