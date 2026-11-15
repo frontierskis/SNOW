@@ -1,60 +1,60 @@
 {
-  "lastUpdated": "2026-11-14 02:18:12 UTC",
+  "lastUpdated": "2026-11-15 02:19:47 UTC",
   "resorts": [
     {
-      "name": "Castle Mountain",
-      "temp": "-7.1\u00b0C",
-      "snow24h": "2 cm",
-      "snowMulti": "2 cm",
-      "snowValue": 2.0
+      "name": "Fernie Alpine Resort",
+      "temp": "0.1\u00b0C",
+      "snow24h": "1.2 cm",
+      "snowMulti": "2.9 cm",
+      "snowValue": 1.2
     },
     {
       "name": "Banff Sunshine",
-      "temp": "-11.0\u00b0C",
+      "temp": "-9.8\u00b0C",
+      "snow24h": "0 cm",
+      "snowMulti": "3.5 cm",
+      "snowValue": 0.0
+    },
+    {
+      "name": "Lake Louise",
+      "temp": "-6.6\u00b0C",
+      "snow24h": "0 cm",
+      "snowMulti": "0.2 cm",
+      "snowValue": 0.0
+    },
+    {
+      "name": "Mt. Norquay",
+      "temp": "-8.3\u00b0C",
       "snow24h": "0 cm",
       "snowMulti": "2.6 cm",
       "snowValue": 0.0
     },
     {
-      "name": "Lake Louise",
-      "temp": "-12.3\u00b0C",
+      "name": "Castle Mountain",
+      "temp": "-3.8\u00b0C",
       "snow24h": "0 cm",
-      "snowMulti": "0 cm",
-      "snowValue": 0.0
-    },
-    {
-      "name": "Mt. Norquay",
-      "temp": "-9.3\u00b0C",
-      "snow24h": "0 cm",
-      "snowMulti": "0 cm",
-      "snowValue": 0.0
-    },
-    {
-      "name": "Fernie Alpine Resort",
-      "temp": "-2.6\u00b0C",
-      "snow24h": "0 cm",
-      "snowMulti": "0.8 cm",
+      "snowMulti": "7.4 cm",
       "snowValue": 0.0
     },
     {
       "name": "Kimberley Alpine Resort",
-      "temp": "-1.9\u00b0C",
+      "temp": "-1.8\u00b0C",
       "snow24h": "0 cm",
-      "snowMulti": "0 cm",
+      "snowMulti": "0.1 cm",
       "snowValue": 0.0
     },
     {
       "name": "Kicking Horse Mountain Resort",
-      "temp": "-9.3\u00b0C",
+      "temp": "-5.7\u00b0C",
       "snow24h": "0 cm",
-      "snowMulti": "0 cm",
+      "snowMulti": "0.5 cm",
       "snowValue": 0.0
     },
     {
       "name": "Panorama Mountain Resort",
-      "temp": "-4.0\u00b0C",
+      "temp": "-2.7\u00b0C",
       "snow24h": "0 cm",
-      "snowMulti": "0 cm",
+      "snowMulti": "0.7 cm",
       "snowValue": 0.0
     }
   ]
