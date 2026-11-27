@@ -1,60 +1,60 @@
 {
-  "lastUpdated": "2026-11-26 02:31:20 UTC",
+  "lastUpdated": "2026-11-27 02:31:25 UTC",
   "resorts": [
     {
-      "name": "Lake Louise",
-      "temp": "-6.6\u00b0C",
-      "snow24h": "1.5 cm",
-      "snowMulti": "2.5 cm",
-      "snowValue": 1.5
-    },
-    {
-      "name": "Castle Mountain",
-      "temp": "-3.2\u00b0C",
-      "snow24h": "0.2 cm",
-      "snowMulti": "13.9 cm",
-      "snowValue": 0.2
-    },
-    {
-      "name": "Kicking Horse Mountain Resort",
-      "temp": "-6.1\u00b0C",
-      "snow24h": "0.1 cm",
-      "snowMulti": "7 cm",
-      "snowValue": 0.1
+      "name": "Fernie Alpine Resort",
+      "temp": "-2.0\u00b0C",
+      "snow24h": "0.9 cm",
+      "snowMulti": "5.2 cm",
+      "snowValue": 0.9
     },
     {
       "name": "Banff Sunshine",
-      "temp": "-6.8\u00b0C",
+      "temp": "-9.9\u00b0C",
       "snow24h": "0 cm",
-      "snowMulti": "6 cm",
+      "snowMulti": "6.9 cm",
+      "snowValue": 0.0
+    },
+    {
+      "name": "Lake Louise",
+      "temp": "-9.9\u00b0C",
+      "snow24h": "0 cm",
+      "snowMulti": "1.8 cm",
       "snowValue": 0.0
     },
     {
       "name": "Mt. Norquay",
-      "temp": "-3.9\u00b0C",
+      "temp": "-6.9\u00b0C",
       "snow24h": "0 cm",
-      "snowMulti": "1.1 cm",
+      "snowMulti": "0.6 cm",
       "snowValue": 0.0
     },
     {
-      "name": "Fernie Alpine Resort",
-      "temp": "0.6\u00b0C",
+      "name": "Castle Mountain",
+      "temp": "-6.5\u00b0C",
       "snow24h": "0 cm",
-      "snowMulti": "2.4 cm",
+      "snowMulti": "3.7 cm",
       "snowValue": 0.0
     },
     {
       "name": "Kimberley Alpine Resort",
-      "temp": "0.6\u00b0C",
+      "temp": "-3.0\u00b0C",
       "snow24h": "0 cm",
-      "snowMulti": "0.5 cm",
+      "snowMulti": "0.1 cm",
+      "snowValue": 0.0
+    },
+    {
+      "name": "Kicking Horse Mountain Resort",
+      "temp": "-6.2\u00b0C",
+      "snow24h": "0 cm",
+      "snowMulti": "1.9 cm",
       "snowValue": 0.0
     },
     {
       "name": "Panorama Mountain Resort",
-      "temp": "-3.1\u00b0C",
+      "temp": "-5.0\u00b0C",
       "snow24h": "0 cm",
-      "snowMulti": "1.9 cm",
+      "snowMulti": "0.2 cm",
       "snowValue": 0.0
     }
   ]
